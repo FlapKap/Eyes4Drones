@@ -9,32 +9,12 @@ import kivy
 
 kivy.require('1.8.0')
 
-from kivy.animation import Animation
+from kivy.garden.mapview import MapView
 from kivy.app import App
-from kivy.uix.button import Button
 
-
-class TestApp(App):
-
-    def animate(self, instance):
-        # create an animation object. This object could be stored
-        # and reused each call or reused across different widgets.
-        # += is a sequential step, while &= is in parallel
-        animation = Animation(pos=(100, 100), t='out_bounce')
-        animation += Animation(pos=(200, 100), t='out_bounce')
-        animation &= Animation(size=(500, 500))
-        animation += Animation(size=(100, 50))
-
-        # apply the animation on the button, passed in the "instance" argument
-        # Notice that default 'click' animation (changing the button
-        # color while the mouse is down) is unchanged.
-        animation.start(instance)
-
+class MapViewApp(App):
     def build(self):
-        # create a button, and  attach animate() method as a on_press handler
-        button = Button(size_hint=(None, None), text='plop',
-                        on_press=self.animate)
-        return button
+        mapview = MapView(zoom=11, lat=50.6394, lon=3.057)
+        return mapview
 
-if __name__ == '__main__':
-    TestApp().run()
+MapViewApp().run()
