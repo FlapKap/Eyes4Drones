@@ -5,9 +5,14 @@ A module for interacting with online APIs
 
 import json
 import httplib
+import googlemaps
+#import android
 
+droid = android.Android()
 owm_key = "fee04268dd271d32dbdefe59fe85f13b"
 owm_baseurl = r"api.openweathermap.org"
+googleKey = "AIzaSyAEe6adJXOA-GtGk9_HZgJMfTzC9TIAoyc"
+googleClient = googlemaps.Client(key=googleKey)
 
 def loc_weather(lat, lon):
     # Request JSON from OWM
@@ -19,8 +24,20 @@ def loc_weather(lat, lon):
     # Turn json into dictionary
     dict = json.loads(body)
     return dict
-    
-def 
+
+def get_location():
+    droid.startLocating()
+    event=droid.eventWaitFor('location', 50000)
+    while 1:
+        try:
+            provider = event.result['data']['gps']['provider']
+            if provider == 'gps':
+                lat = str(event['data']['gps']['latitude'])
+                lon = str(event['data']['gps']['latitude'])
+                return (lat,lon)
+            else: continue
+        except KeyError:
+            continue
     
 def httpTest():
     url = "api.openweathermap.org"
