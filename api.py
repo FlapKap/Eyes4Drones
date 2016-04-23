@@ -20,7 +20,7 @@ owm_baseurl = r"api.openweathermap.org"
 def loc_weather(lat, lon):
     # Request JSON from OWM
     conn = httplib.HTTPConnection(geo_baseurl)
-    req = r"/findNearByWeatherJSON?lat=" + str(lat) r"&lng=" + str(lon) + r"&username=demo"
+    req = r"/findNearByWeatherJSON?lat=" + str(lat) + r"&lng=" + str(lon) + r"&username=demo"
     #req = r"/data/2.5/weather?lat=" + str(lat) + "&lon=" + str(lon) + "&APPID=" + owm_key
     #req = r"/MapClick.php?lat="+str(lat)+r"&lon="+str(lon)+r"&FcstType=json"
     conn.request("GET", req, "")
