@@ -1,0 +1,3 @@
+title=Eyes4Drones
+author=test
+orientation=portrait
