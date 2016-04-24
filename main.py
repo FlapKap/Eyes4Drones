@@ -39,6 +39,9 @@ class Main(App):
         self.Layout.add_widget(mapview)
         
         self.overlay = AnchorLayout(anchor_x='right', anchor_y='top')
+        refocus = AnchorLayout(ancher_x='left', anchor_y = 'bottom', size_hint=(0.25,0.15))
+        btnre = Button(background_normal='refocus_normal.png', background_down='refocus_down.png')
+        refocus.add_widget(btnre)
 #        btn = Button(text="test", size_hint=(.2, .2))
 #        btn = Button(background_normal='Settings G.png', size=(0.2, 0.2), pos=(100,100)) 
         btn = ToggleButton(background_normal='Settings B.png', background_down="Settings G.png")
@@ -46,6 +49,7 @@ class Main(App):
         self.settings = StackLayout(size_hint=(0.2,0.2))
         self.settings.add_widget(btn)
         self.overlay.add_widget(self.settings)
+        self.Layout.add_widget(refocus)
         self.Layout.add_widget(self.overlay)
     
         
