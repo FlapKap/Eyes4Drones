@@ -29,13 +29,13 @@ def loc_weather(lat, lon):
     conn.request("GET", req, "") #, "token:"+noaa_key)
     res = conn.getresponse()
     body = res.read()
-    print body
+    #print body
     # Turn json into dictionary
     try:
-        dict = json.loads(body)
+        dic = json.loads(body)
     except:
-        dict = None
-    return dict
+        dic = None
+    return dic
     
 def httpTest():
     url = "api.openweathermap.org"
@@ -46,8 +46,20 @@ def httpTest():
     body = res.read()
     print res.status, res.reason
     print body
+    dic = json.loads(body)
+    print dic['weather']
+    print dic['main']
+    print dic['wind']
+    
+    weather = dic['weather']
+    main = dic['main']
+    wind = dic['wind']
+    
+    print wind['speed']
+    
+    
 #tests
-print "test 1"
-httpTest()
-from time import sleep
-sleep(3)
+#print "test 1"
+#httpTest()
+#from time import sleep
+#sleep(900)
