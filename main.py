@@ -22,22 +22,28 @@ from kivy.app import App
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.button import Button
+from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.dropdown import DropDown
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.stacklayout import StackLayout
+from kivy.config import Config
+from kivy.core.window import Window
 
 class Main(App):
+    height = 720
+    width = (height/16) * 9
+    Window.size = (width,height)
     
     def build(self):
-        self.Layout = RelativeLayout(size=(900,450))
+        self.Layout = RelativeLayout()
         mapview = MapView(zoom=11, lat=50.6394, lon=3.057)
         self.Layout.add_widget(mapview)
         
         self.overlay = AnchorLayout(anchor_x='right', anchor_y='top')
 #        btn = Button(text="test", size_hint=(.2, .2))
 #        btn = Button(background_normal='Settings G.png', size=(0.2, 0.2), pos=(100,100)) 
-        btn = Button(background_normal='Settings B.png', size_hint=(0.06, 0.1))
-        btn.bind(on_press = self.show_dropdown)
-        self.settings = BoxLayout(orientation='vertical',size_hint=(0.12,0.20))
+        btn = ToggleButton(background_normal='Settings B.png', background_down="Settings G.png")
+        btn.bind(on_press= self.show_dropdown)
+        self.settings = StackLayout(size_hint=(0.2,0.2))
         self.settings.add_widget(btn)
         self.overlay.add_widget(self.settings)
         self.Layout.add_widget(self.overlay)
@@ -46,15 +52,21 @@ class Main(App):
         return self.Layout
         
     def show_dropdown(self,instance):
+        print instance.state
+        if instance.state == 'down':
+            size = (1,0.5)
+            btn1 = Button(text='Weather', size_hint = size)
+            btn2 = Button(text='Level',size_hint = size)
+            btn3 = Button(text='Nearby\nusers', size_hint = size)
+            self.settings.add_widget(btn1)
+            self.settings.add_widget(btn2)
+            self.settings.add_widget(btn3)
+        else:
+            for child in self.settings.children[:]:
+                if child.text != "":
+                    self.settings.remove_widget(child)
+    
         
-        
-        
-        btn1 = Button(text='Weather')
-        btn2 = Button(text='Level')
-        btn3 = Button(text='Nearby users')
-        self.settings.add_widget(btn1)
-        self.settings.add_widget(btn2)
-        self.settings.add_widget(btn3)
                                   
         
 
